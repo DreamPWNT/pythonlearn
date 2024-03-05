@@ -78,3 +78,27 @@ print(double_vodka)
 
 print(list(range(33)))
 print(list(range(-67,80,12)))
+
+range_list = [[x ** 2, x ** 3] for x in range(10)]
+print(range_list)
+
+G = (sum(row) for row in L5)
+
+print(next(G))
+print(next(G))
+print(next(G))
+
+L6 = list(map(sum,L5))
+print(L6)
+
+L7 = {sum(row) for row in L5}
+print(L7)
+
+L8 = {i: sum(L5[i]) for i in range(3)}
+print(L8)
+
+print([ord(char) for char in 'Vodochka!!!'])
+print({ord(char) for char in 'Vodochka!!!'})
+
+L9 = {3,9,4,5,27,90}
+print(L9)

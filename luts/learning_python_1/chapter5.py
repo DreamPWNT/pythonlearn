@@ -1,4 +1,8 @@
 import math
+import decimal
+import fractions
+from fractions import Fraction
+from decimal import Decimal
 
 print(int(3.1415))
 print(float(333))
@@ -53,3 +57,89 @@ print(oct(27389576289), hex(27389576289), bin(27389576289))
 print(1 << 2)
 print(math.pi, math.e)
 print(math.sin(2 * math.pi / 180))
+
+print(0.1 + 0.1 + 0.1 - 0.3)
+print(Decimal('0.1') + Decimal('0.1') + Decimal('0.1') - Decimal('0.3'))
+print(Decimal('0.1') + Decimal('0.10') + Decimal('0.10') - Decimal('0.30'))
+
+print(Decimal(1) / Decimal(7))
+
+decimal.getcontext().prec = 4
+
+print(Decimal(1) / Decimal(7))
+print(1999 + 1.33)
+
+decimal.getcontext().prec = 2
+pay = decimal.Decimal(str(1999 + 1.33))
+
+print(pay)
+
+x = Fraction(1, 3)
+y = Fraction(4, 6)
+
+print(x)
+print(y)
+print(Fraction('.28'))
+
+print((2.5).as_integer_ratio())
+
+f = 2.5
+z = Fraction(f)
+
+print(z)
+
+z = Fraction(*f.as_integer_ratio())
+
+print(z)
+print(x + z)
+print(float(x))
+print(float(x + z))
+print(Fraction.from_float(1.25))
+
+x = set('abcde')
+y = set('bdxyz')
+
+print(x)
+print(x - y)
+print(x | y)
+print(x & y)
+print(x ^ y)
+print(x > y, x < y)
+print('e' in x)
+print('e' in 'Camelot', 22 in [11, 22, 33])
+
+z = x.intersection(y)
+
+print(z)
+
+z.add('SPAM')
+
+print(z)
+
+z.update(set(['X', 'Y']))
+
+print(z)
+
+z.remove('b')
+
+print(z)
+
+for item in set('abc'):
+  print(item * 3)
+  
+S = set([1,2,3])
+
+print(S | set([3,4]))
+print(S.union([3,4]))
+print(S.intersection([1,3,5]))
+print(S.issubset(range(-5,5)))
+
+print({x ** 2 for x in [1,2,3,4]})
+
+L = [1,2,1,3,2,4,5]
+
+print(set(L))
+
+L = list(set(L))
+
+print(L)

@@ -1,4 +1,4 @@
-from os import listdir
+from os import listdir, popen
 
 x = "spam"
 
@@ -149,4 +149,96 @@ while True:
     if not line:
         break
 
+    print(line.rstrip())
+
+print(list(range(5)), list(range(2, 5)), list(range(0, 10, 2)))
+
+for i in range(3):
+    print(i, "Pythons")
+
+X = "spam"
+
+print(X)
+print(len(X))
+print(list(range(len(X))))
+
+for i in range(len(X)):
+    print(X[i], end=" ")
+
+for i in range(len(X)):
+    X = X[1:] + X[:1]
+    print(X, end=" ")
+
+S = "abcdefghijk"
+
+print(list(range(len(S))))
+
+for i in range(0, len(S), 2):
+    print(S[i], end=" ")
+
+for i in S[::2]:
+    print(i, end=" ")
+
+L = [1, 2, 3, 4, 5]
+
+for x in L:
+    x += 1
+
+print(L)
+print(x)
+
+for i in range(len(L)):
+    L[i] += 1
+
+print(L)
+print([x + 1 for x in L])
+
+L1 = [1, 2, 3, 4, 10]
+L2 = [5, 6, 7, 8, 12]
+
+print(list(zip(L1, L2)))
+
+for x, y in zip(L1, L2):
+    print(x, y, "-----", x + y, x * y, x - y, x / y)
+
+T1, T2, T3 = (1, 2, 3), (4, 5, 6), (7, 8, 9)
+
+print(list(zip(T1, T2, T3)))
+
+keys = ["spam", "eggs", "toast"]
+vals = [1, 3, 5]
+
+print(list(zip(keys, vals)))
+
+D2 = {}
+
+for k, v in zip(keys, vals):
+    D2[k] = v
+
+print(D2)
+
+D3 = dict(zip(keys, vals))
+
+print(D3)
+
+print({k: v for k, v in zip(keys, vals)})
+
+S = "spam"
+
+print(enumerate(S))
+
+E = enumerate(S)
+
+print(next(E))
+print(next(E))
+print(next(E))
+print(next(E))
+
+for offset, item in enumerate(S):
+    print(item, "appears at offset", offset)
+
+F = popen("ls")
+print(F.readline())
+
+for line in popen("ls -la"):
     print(line.rstrip())

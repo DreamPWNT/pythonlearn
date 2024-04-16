@@ -38,10 +38,10 @@ x = "spam"
 y = 99
 z = ["eggs"]
 
-print(x, y, z, sep="...", file=open("luts/learning_python_1/printfile.txt", "w"))
+print(x, y, z, sep="...", file=open("luts/learning_python_1/data/printfile.txt", "w"))
 
 temp = sys.stdout
-sys.stdout = open("luts/learning_python_1/log.txt", "a")
+sys.stdout = open("luts/learning_python_1/data/log.txt", "a")
 
 print("spam")
 print(1, 2, 3)
@@ -50,7 +50,7 @@ sys.stdout.close()
 sys.stdout = temp
 
 print("back here")
-print(open("luts/learning_python_1/log.txt", "r").read())
+print(open("luts/learning_python_1/data/log.txt", "r").read())
 
 sys.stderr.write(("Bad" * 8) + "\n")
 print("Bad" * 8, file=sys.stderr)

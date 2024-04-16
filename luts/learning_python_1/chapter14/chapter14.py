@@ -7,10 +7,10 @@ for x in (1, 2, 3, 4):
 for x in "spam":
     print(x * 2, end=" ")
 
-for line in open("luts/learning_python_1/chapter5.py"):
+for line in open("luts/learning_python_1/data/chapter5.py"):
     print(line.upper(), end="")
 
-f = open("luts/learning_python_1/chapter5.py")
+f = open("luts/learning_python_1/data/chapter5.py")
 
 print(f.__next__())
 print(f.__next__())
@@ -61,7 +61,7 @@ L = [x + 33 for x in L]
 
 print(L)
 
-lines = open("luts/learning_python_1/chapter5.py").readlines()
+lines = open("luts/learning_python_1/data/chapter5.py").readlines()
 
 print(lines)
 
@@ -69,17 +69,17 @@ lines = [line.rstrip() for line in lines]
 
 print(lines)
 
-lines = [line.rstrip() for line in open("luts/learning_python_1/chapter5.py")]
+lines = [line.rstrip() for line in open("luts/learning_python_1/data/chapter5.py")]
 
 print(lines)
 
-lines = [line.split() for line in open("luts/learning_python_1/chapter5.py")]
+lines = [line.split() for line in open("luts/learning_python_1/data/chapter5.py")]
 
 print(lines)
 
 lines = [
     line.rstrip()
-    for line in open("luts/learning_python_1/chapter5.py")
+    for line in open("luts/learning_python_1/data/chapter5.py")
     if line[0] == "p"
 ]
 
@@ -89,19 +89,19 @@ print(lines)
 
 print([x + y for x in "abc" for y in "lmn"])
 
-print(list(map(str.upper, open("luts/learning_python_1/chapter5.py"))))
+print(list(map(str.upper, open("luts/learning_python_1/data/chapter5.py"))))
 
-a, b, c, *d = open("luts/learning_python_1/chapter5.py")
+a, b, c, *d = open("luts/learning_python_1/data/chapter5.py")
 
 print(a)
 print(b)
 print(c)
 print(d)
 
-print('print("%e" % num)\n' in open("luts/learning_python_1/chapter5.py"))
+print('print("%e" % num)\n' in open("luts/learning_python_1/data/chapter5.py"))
 
-print(max(open("luts/learning_python_1/chapter5.py")))
-print(min(open("luts/learning_python_1/chapter5.py")))
+print(max(open("luts/learning_python_1/data/chapter5.py")))
+print(min(open("luts/learning_python_1/data/chapter5.py")))
 
 print(*[1, 2, 3, 4])
 print([1, 2, 3, 4])

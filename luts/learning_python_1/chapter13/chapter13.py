@@ -128,7 +128,7 @@ for ch1 in S2:
 print(L3)
 print(listdir())
 
-file = open("pythonlearn/luts/learning_python_1/hwfile.txt")
+file = open("pythonlearn/luts/learning_python_1/data/hwfile.txt")
 
 while True:
     char = file.read(1)
@@ -138,10 +138,10 @@ while True:
 
     print(char)
 
-for char in open("pythonlearn/luts/learning_python_1/hwfile.txt"):
+for char in open("pythonlearn/luts/learning_python_1/data/hwfile.txt"):
     print(char)
 
-file2 = open("pythonlearn/luts/learning_python_1/log.txt")
+file2 = open("pythonlearn/luts/learning_python_1/data/log.txt")
 
 while True:
     line = file2.readline()

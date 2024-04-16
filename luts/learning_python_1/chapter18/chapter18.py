@@ -1,3 +1,6 @@
+from inter2 import union, intersect
+
+
 def f(a):
     a = 99
 
@@ -232,37 +235,9 @@ def min1(*args):
 
 
 print(min(1, 2, 1, 56, 2, 6, 3, 6, 4))
-
-
-def inserect(*args):
-    res = []
-    for el in args[0]:
-        print(el)
-        if el in res:
-            print("continue")
-            continue
-        else:
-            for e in args[1:]:
-                print(e)
-                if not el in e:
-                    break
-            else:
-                res.append(el)
-
-    return res
-
-
-print(inserect([1, 2], [2, 3], [2, 4]))
-
-
-def union(*args):
-    res = []
-    for el in args:
-        for e in el:
-            if not e in res:
-                res.append(e)
-
-    return res
-
-
+print(intersect([1, 2], [2, 3], [2, 4]))
 print(union([1, 2], [2, 3], [2, 4]))
+
+s1, s2, s3 = "SPAM", "SCAM", "SLAM"
+
+print(intersect(s1, s2), union(s1, s2))

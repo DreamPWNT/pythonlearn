@@ -1,4 +1,5 @@
 from inter2 import union, intersect
+from print3 import print3
 
 
 def f(a):
@@ -241,3 +242,27 @@ print(union([1, 2], [2, 3], [2, 4]))
 s1, s2, s3 = "SPAM", "SCAM", "SLAM"
 
 print(intersect(s1, s2), union(s1, s2))
+print(intersect([1, 2, 3], (1, 4)))
+print(intersect(s1, s2, s3))
+print(union(s1, s2, s3))
+
+
+def tester(func, items, trace=True):
+    for i in range(len(items)):
+        items = items[1:] + items[:1]
+        if trace:
+            print(f"Initial data to {func.__name__}:", items)
+        print(f"Result of {func.__name__}:", sorted(func(*items)))
+
+
+tester(intersect, ("a", "acbdefg", "abdst", "albmncd"))
+tester(union, ("a", "acbdefg", "abdst", "albmncd"), False)
+tester(intersect, ("ba", "acbdefg", "abdst", "albmncd"), False)
+
+print3(1, 2, 3)
+print3(1, 2, 3, sep="")
+print3(1, 2, 3, sep="....")
+print3(1, [2], (3,), spe="...")
+print3(4, 5, 6, sep="", end="")
+print3(7, 8, 9)
+print()

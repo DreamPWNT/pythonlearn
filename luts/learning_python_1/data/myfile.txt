@@ -1,2 +1,2 @@
-hello text file
+hello text
 goodbye text file

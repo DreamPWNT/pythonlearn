@@ -3,7 +3,8 @@ import pickle
 import json
 import struct
 
-file_path = "luts/learning_python_1/data/"
+# file_path = "luts/learning_python_1/data/"
+file_path = ""
 
 T = tuple("spam")
 
@@ -214,3 +215,46 @@ print(data)
 values = struct.unpack(">i4sh", data)
 
 print(values)
+
+L = ["abc", [(1, 2), ([3], 4)], 5]
+
+print(L[1], "|", L[1][1], "|", L[1][1][0], "|", L[1][1][0][0])
+
+X = [1, 2, 3]
+L = ["a", X, "b"]
+D = {"x": X, "y": 2}
+
+X[1] = "surprise"
+
+print(X, L, D)
+
+L = [1, 2, 3]
+D = {"a": 1, "b": 2}
+
+A = L[:]
+B = D.copy()
+
+A[1] = "Ni"
+B["c"] = "spam"
+
+print(A, B, L, D)
+
+L1 = [1, {"a": 3}]
+L2 = [1, {"a": 3}]
+
+print(L1 == L2, L1 is L2)
+
+S1 = "spam"
+S2 = "spam"
+
+print(S1 == S2, S1 is S2)
+
+S1 = "a longer string gjfdklojiowerjgiowejgrwiogjweioggfdsknhjl;dsfg,m.jhgjsfklde;imuop432g5mpiou345b6mopuib34567imojpub34567ijmopw45bey6mjkolhwretsbjtyo5wrelu60io345mu6bjyiot5r4mnubyj456oiemniju7op45ey6r"
+S2 = "a longer string gjfdklojiowerjgiowejgrwiogjweioggfdsknhjl;dsfg,m.jhgjsfklde;imuop432g5mpiou345b6mopuib34567imojpub34567ijmopw45bey6mjkolhwretsbjtyo5wrelu60io345mu6bjyiot5r4mnubyj456oiemniju7op45ey6r"
+
+print(S1 == S2, S1 is S2)
+
+L1 = [1, ("a", 3)]
+L2 = [1, ("a", 2)]
+
+print(L1 < L2, L1 == L2, L1 > L2)

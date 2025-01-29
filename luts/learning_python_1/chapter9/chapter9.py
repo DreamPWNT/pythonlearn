@@ -3,8 +3,8 @@ import pickle
 import json
 import struct
 
-# file_path = "luts/learning_python_1/data/"
-file_path = ""
+file_path = "luts/learning_python_1/data/"
+# file_path = ""
 
 T = tuple("spam")
 
@@ -258,3 +258,44 @@ L1 = [1, ("a", 3)]
 L2 = [1, ("a", 2)]
 
 print(L1 < L2, L1 == L2, L1 > L2)
+
+L = [4, 5, 6]
+X = L * 4
+Y = [L] * 4
+
+print(L, X, Y)
+
+L[1] = 0
+
+print(X, Y)
+
+D = {
+    "personal": {
+        "name": "Dmitriy",
+        "second_name": "Viktorovich",
+        "last_name": "Dolganov",
+    },
+    "age": 37,
+    "work": {
+        "post": "Senior PHP developer",
+        "work_place": "MIIT",
+    },
+    "contact_info": {
+        "adress": "Bobrovo, Lesnaya street 24-1-241",
+        "phone": "+380633844468",
+        "e-mail": "dreampwnt@gmail.com",
+    },
+}
+
+print(D, D["personal"]["last_name"], D["work"]["post"], D["contact_info"]["phone"])
+
+f = open("hw.txt", "w")
+
+f.write("Hello file world!\n")
+
+f.close()
+
+
+f = open("hw.txt")
+
+print(repr(f.read()))

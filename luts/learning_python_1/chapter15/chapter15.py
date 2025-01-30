@@ -1,69 +1,93 @@
+# Python documentation
+
 import sys
 
 print(dir(sys))
 print(len(dir(sys)))
-print(len([x for x in dir(sys) if not x.startswith("__")]))
-print(len(dir([])), len([x for x in dir([]) if not x.startswith("__")]))
+print(len([x for x in dir(sys) if not x.endswith("__")]))
+print(len([x for x in dir(sys) if not x[0] != "_"]))
+print(dir([]))
 print(dir(""))
+print([x for x in dir(list) if not x.startswith("__")])
+print([x for x in dir(dict) if not x.startswith("__")])
+print([x for x in dir(list) if not x[0] == "_"])
+print([x for x in dir(dict) if not x[0] == "_"])
+
+
+def dir1(x):
+    return [x for x in dir(x) if not x.startswith("__")]
+
+
+print(dir1(sys))
+
+"""
+Words Fo Here
+"""
+
+spam = 40
 
 
 def square(x):
-    """square
+    """
+    Function squared int
 
     Args:
-        x (int): int number
-
-    Returns:
-        int: sqaure of int
+        x (int or float): return squared value
     """
-    return x * x
+    return x**2
 
 
+class Employee:
+    """
+    class documentation
+    """
+
+    pass
+
+
+print(square(4))
+print(square.__doc__)
 print(sys.__doc__)
 print(sys.getrefcount.__doc__)
-print(iter.__doc__)
-
+print(int.__doc__)
+print(map.__doc__)
 print(help(sys.getrefcount))
-print(help("re"))
-print(help(sys))
-print(help(dict))
-print(help(square))
+print(help(str.replace))
+print(help("".replace))
+print(help(ord))
 
-S = input()
-chars_sum = 0
-ords_list = []
+S = "vodochka i seledochka"
+L_ord = []
 
+sum = 0
 for ch in S:
-    print(ord(ch), end=" ")
-    chars_sum += ord(ch)
-    ords_list.append(ord(ch))
+    sum += ord(ch)
+    L_ord.append(ord(ch))
 
-print()
-print(f"Sum of ords = {chars_sum}")
-print(ords_list)
+    print(ch, "code =", ord(ch))
 
-print([ord(ch) for ch in S])
+print("sum =", sum)
+print(L_ord)
+
 print(map(ord, S))
+print([ord(ch) for ch in S])
 
 for i in range(50):
-    print("hello %d\n\a" % i)
+    print("Hello %d\n\a" % i)
 
-D = {
-    "g": 1,
-    "b": 1,
-    "a": 5,
-    "n": 123,
-    "q": 1,
-    "o": 432,
-    "x": 12,
-    "f": 523,
-    "t": 1,
-    "z": 321,
-}
+D = {"f": 1, "a": 34, "y": 12, "h": 545, "z": 321, "c": -9}
+D_sorted = {}
 
-print({k: v for k, v in sorted(D.items())})
+L_keys = sorted(list(D.keys()))
+L_keys = list(D.keys())
+L_keys.sort()
 
-L = [1, 2, 4, 8, 16, 32, 64]
+for key in L_keys:
+    D_sorted[key] = D[key]
+
+    print(key, "=>", D[key])
+
+L = [1, 2, 4, 8, 16, 32, 4]
 X = 5
 found = False
 i = 0
@@ -73,6 +97,7 @@ while not found and i < len(L):
         found = True
     else:
         i = i + 1
+
 if found:
     print("at index", i)
 else:
@@ -80,40 +105,41 @@ else:
 
 L = [1, 2, 4, 8, 16, 32, 64]
 X = 5
-found = False
 i = 0
 
 while i < len(L):
     if 2**X == L[i]:
         print("at index", i)
+
         break
-    i = i + 1
+    else:
+        i = i + 1
+else:
+    print(X, "not found")
 
 L = [1, 2, 4, 8, 16, 32, 64]
+X = 5
+i = 0
 
-for x in L:
-    if 2**X == L[L.index(x)]:
-        print("at index", L.index(x))
+for idx in range(len(L)):
+    if 2**X == L[idx]:
+        print("at index", idx)
+
         break
 else:
     print(X, "not found")
+
+L = [1, 2, 4, 8, 16, 32, 64]
+X = 5
 
 if 2**X in L:
     print("at index", L.index(2**X))
 else:
     print(X, "not found")
 
-L = []
-X = 5
+L = [2**x for x in range(0, 7)]
 
-for i in range(10):
-    L.append(2**i)
-
-print(L)
-
-for x in L:
-    if 2**X == x:
-        print("at index", L.index(x))
-        break
+if 2**X in L:
+    print("at index", L.index(2**X))
 else:
-    print("not found")
+    print(X, "not found")

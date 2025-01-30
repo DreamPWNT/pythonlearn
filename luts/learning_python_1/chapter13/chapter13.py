@@ -1,4 +1,4 @@
-from os import listdir, popen
+import os
 
 x = "spam"
 
@@ -6,16 +6,16 @@ while x:
     print(x, end=" ")
     x = x[1:]
 
+print()
+
 a = 0
 b = 10
 
 while a < b:
-    print(a)
+    print(a, end=" ")
     a += 1
 
-Y = ...
-
-print(Y)
+print()
 
 x = 10
 
@@ -26,48 +26,49 @@ while x:
         continue
 
     print(x, end=" ")
-
+"""
 while True:
-    name = input("Enter name: ")
+    name = input("Enter name (print 'stop' to exit): ")
 
     if name == "stop":
         break
+    age = input("Enter age:")
+    print("Hello", name, "=>", int(age) ** 2)
+"""
+y = 11
+x = y // 2
+while x > 1:
+    if y % x == 0:
+        print(y, "has factor", x)
 
-    age = input("Enter age: ")
-
-    print("Hello " + name + " => " + age)
-
-for x in "spam":
-    if x == "p":
         break
 
-print(x)
+    x -= 1
+else:
+    print(y, "is prime")
 
 for x in ["spam", "eggs", "ham"]:
     print(x, end=" ")
 
-lst = [1, 2, 3, 4]
 sum = 0
 prod = 1
 
-for x in lst:
+for x in [1, 2, 3, 4]:
     sum += x
-
-for x in lst:
     prod *= x
 
-print(sum)
-print(prod)
+print(sum, prod)
 
 S = "lumberjack"
-
-for ch in S:
-    print(ch, end=" ")
-
 T = ("and", "I'm", "okay")
 
-for s in T:
-    print(s, end=" ")
+for x in S:
+    print(x, end=" ")
+
+for x in T:
+    print(x, end=" ")
+
+print()
 
 T = [(1, 2), (3, 4), (5, 6)]
 
@@ -84,126 +85,126 @@ print(list(D.items()))
 for key, value in D.items():
     print(key, "=>", value)
 
-for a, b, c in [(1, 2, 3), (4, 5, 6)]:
+for both in T:
+    a, b = both
+    print(a, b)
+
+for (a, b), c in ((1, 2), 3), ["XY", 6]:
     print(a, b, c)
 
-for a, *b, c in [(1, 2, 3, 4), (5, 6, 7, 8)]:
-    print(a, b, c)
+items = ["aaa", 111, (4, 5), 2.01]
+tests = [(4, 5), 3.14]
 
-items = ["s", (1, 2, 3), 12, 1533.97, {"a": 1, "b": 5}, [55, 66, 88]]
-tests = ["a", ["bbb", "ddd"], 9999.9999, 12, {"a": 1, "b": 5}, (321, 123), "s", 1533.97]
-
-for test in tests:
+for key in tests:
     for item in items:
-        if item == test:
-            print(item, "was found =))))))")
+        if item == key:
+            print(key, "was found")
             break
     else:
-        print(test, "not found (((((")
+        print(key, "not found")
 
-for test in tests:
-    if test in items:
-        print(test, "was found =))))))")
-    else:
-        print(test, "not found (((((")
+seq1 = "spam"
+seq2 = "scam"
+res = []
 
-L2 = []
+for item in seq1:
+    if item in seq2:
+        res.append(item)
 
-for test in tests:
-    if test in items:
-        L2.append(test)
+print(res)
 
-print(L2)
+res = [x for x in seq1 if x in seq2]
 
-L3 = []
-S2 = "spafjnkjldfgj;lahhgj"
-S3 = "vbnpqqwjugtiuohidhnkfjdsl"
+print(res)
 
-for ch1 in S2:
-    for ch2 in S3:
-        if ch2 == ch1:
-            L3.append(ch2)
-            break
-
-print(L3)
-print(listdir())
-
-file = open("pythonlearn/luts/learning_python_1/data/hwfile.txt")
-
-while True:
-    char = file.read(1)
-
-    if not char:
-        break
-
-    print(char)
-
-for char in open("pythonlearn/luts/learning_python_1/data/hwfile.txt"):
-    print(char)
-
-file2 = open("pythonlearn/luts/learning_python_1/data/log.txt")
-
-while True:
-    line = file2.readline()
-
-    if not line:
-        break
-
-    print(line.rstrip())
-
-print(list(range(5)), list(range(2, 5)), list(range(0, 10, 2)))
+print(
+    list(range(5)),
+    list(range(2, 5)),
+    list(range(0, 10, 2)),
+    list(range(-5, 5)),
+    list(range(5, -5, -1)),
+)
 
 for i in range(3):
     print(i, "Pythons")
 
 X = "spam"
 
-print(X)
-print(len(X))
-print(list(range(len(X))))
+for item in X:
+    print(item, end=" ")
 
-for i in range(len(X)):
+i = 0
+
+while i < len(X):
     print(X[i], end=" ")
+    i += 1
 
-for i in range(len(X)):
-    X = X[1:] + X[:1]
+print()
+
+S = "spam"
+
+for i in range(len(S)):
+    S = S[1:] + S[:1]
+
+    print(S, end=" ")
+
+print()
+
+for i in range(len(S)):
+    X = S[i:] + S[:i]
     print(X, end=" ")
+
+print()
+
+L = [1, 2, 3]
+
+for i in range(len(L)):
+    X = L[i:] + L[:i]
+
+    print(X, end=" ")
+
+print()
 
 S = "abcdefghijk"
 
-print(list(range(len(S))))
+print(list(range(0, len(S), 2)))
 
-for i in range(0, len(S), 2):
+for i in list(range(0, len(S), 2)):
     print(S[i], end=" ")
 
-for i in S[::2]:
-    print(i, end=" ")
+print()
+
+for c in S[::2]:
+    print(c, end=" ")
+
+print()
 
 L = [1, 2, 3, 4, 5]
-
-for x in L:
-    x += 1
-
-print(L)
-print(x)
 
 for i in range(len(L)):
     L[i] += 1
 
 print(L)
+
+i = 0
+
+while i < len(L):
+    L[i] += 1
+    i += 1
+
+print(L)
+
 print([x + 1 for x in L])
 
-L1 = [1, 2, 3, 4, 10]
-L2 = [5, 6, 7, 8, 12]
+L1 = [1, 2, 3, 4, 10, 333, 444]
+L2 = [5, 6, 7, 8, 9, 111]
 
 print(list(zip(L1, L2)))
 
 for x, y in zip(L1, L2):
-    print(x, y, "-----", x + y, x * y, x - y, x / y)
+    print(x, y, "++++", x + y, "----", x - y, "****", x * y, "////", x / y)
 
-T1, T2, T3 = (1, 2, 3), (4, 5, 6), (7, 8, 9)
-
-print(list(zip(T1, T2, T3)))
+print(list(map(ord, "spam")))
 
 keys = ["spam", "eggs", "toast"]
 vals = [1, 3, 5]
@@ -221,24 +222,41 @@ D3 = dict(zip(keys, vals))
 
 print(D3)
 
-print({k: v for k, v in zip(keys, vals)})
+print({k: v for (k, v) in zip(keys, vals)})
 
 S = "spam"
 
-print(enumerate(S))
+for idx, item in enumerate(S):
+    print(item, "appears at offset", idx)
 
 E = enumerate(S)
 
+print(E)
 print(next(E))
 print(next(E))
 print(next(E))
 print(next(E))
 
-for offset, item in enumerate(S):
-    print(item, "appears at offset", offset)
+F = os.popen("dir")
 
-F = popen("ls")
-print(F.readline())
+print(repr(F.readline()))
 
-for line in popen("ls -la"):
+F = os.popen("dir")
+
+print(repr(F.readline(50)))
+
+print(os.popen("dir").readlines())
+
+
+for line in os.popen("dir"):
     print(line.rstrip())
+
+print(os.system("systeminfo"))
+
+for line in os.popen("systeminfo"):
+    print(line.rstrip())
+
+for i, line in enumerate(os.popen("systeminfo")):
+    if i == 4:
+        break
+    print("%05d) %s" % (i, line.rstrip()))

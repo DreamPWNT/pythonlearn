@@ -64,7 +64,7 @@ print(action())
 
 def maker(N):
     def action(X):
-        return X**N
+        return X ** N
 
     return action
 
@@ -80,7 +80,7 @@ print(f(4))
 
 
 def maker(N):
-    return lambda X: X**N
+    return lambda X: X ** N
 
 
 h = maker(3)
@@ -89,7 +89,7 @@ print(h(4))
 
 def func():
     x = 4
-    action = lambda n: x**n
+    action = lambda n: x ** n
     return action
 
 
@@ -101,7 +101,7 @@ print(x(2))
 def makeActions():
     acts = []
     for i in range(5):
-        acts.append(lambda x, i=i: i**x)
+        acts.append(lambda x, i=i: i ** x)
 
     return acts
 

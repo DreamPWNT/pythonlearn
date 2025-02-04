@@ -1,3 +1,5 @@
+import random
+
 line = "Hello, my name is [u-1061][u-1072][u-1082][u-1080]!"
 counter = 0
 
@@ -186,3 +188,189 @@ def merge_sort(L1, L2, result=None):
 
 
 print(merge_sort(L1, L2))
+
+
+S = "5 6 3 6 -4 6 -1"
+
+
+def outer(start=5):
+    def sum_decorate(func):
+        def wrapper(*args, **kwargs):
+            res = func(*args, **kwargs)
+            return res + start
+
+        return wrapper
+
+    return sum_decorate
+
+
+@outer(start=5)
+def sum_list_from_string(S):
+    return sum(list(map(int, S.split())))
+
+
+# sum_list_from_string = outer(start=5)(sum_list_from_string)
+print(sum_list_from_string(S))
+
+t = {
+    "ё": "yo",
+    "а": "a",
+    "б": "b",
+    "в": "v",
+    "г": "g",
+    "д": "d",
+    "е": "e",
+    "ж": "zh",
+    "з": "z",
+    "и": "i",
+    "й": "y",
+    "к": "k",
+    "л": "l",
+    "м": "m",
+    "н": "n",
+    "о": "o",
+    "п": "p",
+    "р": "r",
+    "с": "s",
+    "т": "t",
+    "у": "u",
+    "ф": "f",
+    "х": "h",
+    "ц": "c",
+    "ч": "ch",
+    "ш": "sh",
+    "щ": "shch",
+    "ъ": "",
+    "ы": "y",
+    "ь": "",
+    "э": "e",
+    "ю": "yu",
+    "я": "ya",
+}
+
+# здесь продолжайте программу
+
+S = "Декораторы.. - это круто?!  "
+
+
+def outer(chars=" !?"):
+    def dec_translate(func):
+        def wrapper(s):
+            res = func(s)
+            for ch in chars:
+                res = res.replace(ch, "-")
+            while True:
+                res = res.replace("--", "-")
+                if len(res.replace("--", "-")) == len(res):
+                    break
+            return res
+
+        return wrapper
+
+    return dec_translate
+
+
+@outer(chars="?!:;,. ")
+def translate(s):
+    s = s.lower()
+    return "".join([t.get(ch, ch) for ch in s])
+
+
+print(translate(S))
+
+
+def draw_triangle():
+
+    for i in range(8):
+        print((7 - i) * " " + (15 - 2 * (7 - i)) * "*" + (7 - i) * " ")
+
+
+# основная программа
+draw_triangle()  # вызов функции
+
+L = [1, 2, 3, 4]
+print(L.index(1))
+del L[3]
+del L[2]
+del L[1]
+del L[0]
+print(L)
+
+""" The game random!!!"""
+
+
+def is_valid(n, check_border=False):
+    if not n.isdigit():
+        return False
+    if check_border == False and int(n) < 1 or int(b) > 100:
+        return False
+    if check_border == True and int(n) < 2:
+        return False
+
+    return True
+
+
+def get_right_border():
+    while True:
+        right_border = input("Введите правую границу для отрезка чисел: ")
+
+        if not is_valid(right_border, check_border=True):
+            print(
+                "Неправвильное значение границы. Граница должна быть целым положительным числом > 1"
+            )
+        else:
+            return int(right_border)
+
+
+def game():
+    print("Добро пожаловать в числовую угадайку")
+
+    right_border = get_right_border()
+    N = random.randint(1, right_border)
+    attemption_counter = 0
+
+    while True:
+        a = input(f"Введите число от 1 до {right_border}: ")
+
+        if not is_valid(a) or int(a) < N or int(a) > N:
+            attemption_counter += 1
+
+        if not is_valid(a):
+            print(f"А может быть все-таки введем целое число от 1 до {right_border}?")
+            continue
+
+        a = int(a)
+
+        if a < N:
+            print("Ваше число меньше загаданного, попробуйте еще разок")
+
+            continue
+        elif a > N:
+            print("Ваше число больше загаданного, попробуйте еще разок")
+
+            continue
+        else:
+            print(f"Вы угадали, поздравляем! Количество попыток: {attemption_counter}")
+            flag = input("Сыграем ещё раз? (да/нет)")
+
+            if flag != "да" and flag != "нет":
+                print("Неправильный формат ответа")
+
+                break
+            elif flag == "нет":
+                print("Очень жаль!")
+
+                break
+            else:
+                print("Погнали!!!")
+
+                right_border = get_right_border()
+                N = random.randint(1, 100)
+                attemption_counter = 0
+
+                continue
+
+    print("Спасибо, что играли в числовую угадайку. Еще увидимся...")
+
+
+game()

@@ -1,1 +1,0 @@
-print("Vodka i seledka!!!")

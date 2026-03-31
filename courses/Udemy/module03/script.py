@@ -90,3 +90,47 @@ print('www' in url)
 print('www' in broken_url)
 print(not 5 > 5)
 print('vasia' not in url)
+
+x = 0
+
+if x:
+    print(100 / x)
+else:
+    print("Fucking division by zero!!!!! Cancer!!!")
+
+print("Program finished!")
+
+value = float(input("Value: "))
+part = float(input("How many?: "))
+
+if value <= 0 or part < 0:
+    print("Fucking division by zero or negative values!!!!! Cancer!!!")
+else:
+    percent = part / value * 100
+
+    print(round(percent, 2), '%')
+
+x = -5
+y = 7
+
+if x >= 0 and y >= 0:
+    print(x * y)
+
+if x >= 0 or y >= 0:
+    print(x * y)
+
+num_tickets = 248
+bus_capacity = 48
+
+num_tickets_left = num_tickets % bus_capacity
+bus_quantity = num_tickets // bus_capacity
+has_partial_bus = False
+empty_seats = 0
+
+if num_tickets_left >= bus_capacity / 2:
+    bus_quantity += 1
+    has_partial_bus = True
+    empty_seats = bus_capacity - num_tickets_left
+    num_ticket_left = 0
+
+print(bus_quantity, num_tickets_left, has_partial_bus, empty_seats)

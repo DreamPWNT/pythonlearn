@@ -225,7 +225,7 @@ user_input = 'heLlo'
 
 print(user_input)
 
-url = 'http://google.com'
+url = 'http://www.google.com'
 right_url = url.replace('http:', 'https:', count=1)
 
 print(url)
@@ -239,4 +239,67 @@ index = len(url) - 1
 
 print(url[index])
 
-item = url[1]
+item = url[4]
+
+part = url[0:4:2]
+
+print(url)
+print(part)
+print(url[7:10:1])
+print(url[:4])
+print(url[7:])
+print(url[:])
+print(url[-21:21:])
+print(url[21:4:-2])
+
+start_index = url.index('www.') + 4
+domain = url[start_index:]
+
+print(domain)
+
+vertebrae = "C1, C2, C3, C4, C5, C6, C7"
+vertebrae2 = "C1, C2, C3, C4, C5, C6, C7"
+
+print(id(vertebrae))
+print(id(vertebrae2))
+
+numbers_str = vertebrae[1::4]
+
+print(numbers_str)
+print(vertebrae[-5:1:-1])
+
+ascii = 'a' * 10
+not_only_ascii = 'a' * 9 + 'бб'
+
+print(not_only_ascii.__sizeof__() - 'б'.__sizeof__())
+
+x = 'Hello ' \
+    'World!'
+
+print(x)
+
+x = '''
+Hello
+'''
+
+print(x)
+
+x = "Hello \nWorld!"
+
+print(x)
+
+name = 'Alex'
+id = 123496789
+
+message = 'Hello {}, your id is: {}'.format(name, id)
+message = f'Hello {name}, your id is: {id}'
+
+print(message)
+
+rating = 4.95124
+
+print(f'Hello {name}, your id is: {rating:.2f}')
+print('Hello {}, your id is: {:.2f}'.format(name, rating))
+print('Hello {name}, your id is: {rating:.2f}'.format(
+    name=name, rating=rating))
+print('Hello %s, your id is: %.2f' % (name, rating))

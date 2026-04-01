@@ -1,4 +1,5 @@
 import math
+import sys
 
 result = 2*(2 - 2) / 2
 
@@ -100,15 +101,16 @@ else:
 
 print("Program finished!")
 
-value = float(input("Value: "))
-part = float(input("How many?: "))
 
-if value <= 0 or part < 0:
-    print("Fucking division by zero or negative values!!!!! Cancer!!!")
-else:
-    percent = part / value * 100
-
-    print(round(percent, 2), '%')
+# value = float(input("Value: "))
+# part = float(input("How many?: "))
+#
+# if value <= 0 or part < 0:
+# print("Fucking division by zero or negative values!!!!! Cancer!!!")
+# else:
+# percent = part / value * 100
+#
+# print(round(percent, 2), '%')
 
 x = -5
 y = 7
@@ -134,3 +136,107 @@ if num_tickets_left >= bus_capacity / 2:
     num_ticket_left = 0
 
 print(bus_quantity, num_tickets_left, has_partial_bus, empty_seats)
+
+n = int()
+s = str()
+
+print(n)
+print(s)
+print(type(n))
+print(type(s))
+
+s = "AAA"
+x = s.lower()
+
+print(s)
+print(x)
+
+x = "AAA"
+y = x
+
+print(id(x))
+print(id(y))
+print(hex(id(x)))
+print(hex(id(y)))
+
+print(x is y)
+print(x == y)
+
+print(sys.getrefcount(y))
+
+x = 5
+y = 10
+
+print(id(x))
+print(id(y))
+print(sys.getrefcount(x))
+print(sys.getrefcount(y))
+
+x = 50_000_000_000
+
+print(x)
+
+x = .25
+
+print(x)
+
+x = 0b1000001
+
+print(x)
+
+x = 255
+y = 255.0
+
+new_obj = y.is_integer()
+
+print(new_obj)
+
+if y.is_integer:
+    y = int(y)
+
+print(y)
+
+user_input = 'Привет'
+
+word = 'привет'
+
+if word in user_input.lower():
+    print("Yo bro!!!")
+
+new = user_input.lower()
+
+print(user_input)
+print(new)
+
+user_input = '/'
+
+if user_input.startswith('/'):
+    print("Right command!")
+
+user_input = '2,55'
+
+if ',' in user_input:
+    user_input = user_input.replace(',', '.')
+
+print(user_input)
+print(user_input.count('2'))
+
+user_input = 'heLlo'
+
+print(user_input)
+
+url = 'http://google.com'
+right_url = url.replace('http:', 'https:', count=1)
+
+print(url)
+print(right_url)
+
+print(url[0])
+print(url[1])
+print(url[-1])
+
+index = len(url) - 1
+
+print(url[index])
+
+item = url[1]

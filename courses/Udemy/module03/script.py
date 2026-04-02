@@ -296,10 +296,14 @@ message = f'Hello {name}, your id is: {id}'
 
 print(message)
 
-rating = 4.95124
+rating = 4.951246
 
 print(f'Hello {name}, your id is: {rating:.2f}')
 print('Hello {}, your id is: {:.2f}'.format(name, rating))
 print('Hello {name}, your id is: {rating:.2f}'.format(
     name=name, rating=rating))
 print('Hello %s, your id is: %.2f' % (name, rating))
+
+path = 'C:\\Users\\name\\Desktop'
+
+print(path)

@@ -9,11 +9,6 @@ if word == word[-1::-1]:
 else:
     is_palindrome = False
 
-str = list(word)
-str.reverse()
-print(list(word).reverse())
-print(str)
-print(list(word).reverse().split())
 # Не мухлевать!
 # В переменной is_palindrome должно быть True если палиндром
 # или False если нет.

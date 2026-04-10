@@ -15,3 +15,5 @@ if not 'https://' in url:
 
 # Переменная url должна содержать нормальный url:
 print(url)
+
+print(a)

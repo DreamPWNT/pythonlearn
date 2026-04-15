@@ -1,0 +1,14 @@
+lp6e was here
+1 2 3
+lp6e was here
+1 2 3
+python 3.12 ['lp6e']
+lp6e was here
+1 2 3
+python 3.12 ['lp6e']
+lp6e was here
+1 2 3
+python 3.12 ['lp6e']
+lp6e was here
+1 2 3
+python 3.12 ['lp6e']

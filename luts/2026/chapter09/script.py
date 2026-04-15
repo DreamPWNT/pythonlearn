@@ -236,3 +236,112 @@ try:
         print(line)
 finally:
     myfile.close()
+
+L = ['abc', [(1, 2), ([3], 4), 5]]
+
+print(L[1], L[1][1], L[1][1][0], L[1][1][0][0])
+
+X = [1, 2, 3]
+L = ['a', X, 'b']
+D = {'x': X, 'y': 2}
+
+print(X, L, D)
+
+X[1] = 'surprise'
+
+print(X, L, D)
+
+L = [1, 2, 3]
+D = {'a': 1, 'b': 2}
+
+A = L[:]
+B = D.copy()
+
+print(L, D, A, B)
+
+A[1] = 'Py'
+B['c'] = 'code'
+
+print(L, D, A, B)
+
+L1 = [1, ('a', 3)]
+L2 = [1, ('a', 3)]
+
+print(L1 == L2, L1 is L2)
+
+S1 = 'text'
+S2 = 'text'
+
+print(S1 == S1, S1 is S2)
+
+S1 = 'a longer string'
+S2 = 'a longer string'
+
+print(S1 == S2, S1 is S2)
+
+L1 = [1, ('a', 3)]
+L2 = [1, ('a', 2)]
+
+print(L1 < L2, L1 == L2, L1 > L2)
+
+print(11 == '11')
+print(11 > 9.123)
+print(str(11) >= '11', 11 >= int('11'))
+
+D1 = {'b': 3, 'a': 1}
+D2 = {'a': 1, 'b': 3}
+
+print(D1 == D2)
+
+print(list(D1.items()))
+print(sorted(D1.items()))
+
+print(sorted(D1.items()) < sorted(D2.items()))
+print(sorted(D1.items()) >= sorted(D2.items()))
+
+size = 50
+L = [None] * size
+
+L[size - 1] = 'OK'
+
+print(L[-10:])
+
+print(bool(1))
+print(bool('text'))
+print(bool({}))
+
+L = [4, 5, 6]
+X = L * 4
+Y = [L] * 4
+
+print(L)
+print(X)
+print(Y)
+
+L[1] = 'vodochka!!!!!'
+
+print(Y)
+
+L = [4, 5, 6]
+Y = [list(L)] * 4
+
+print(Y)
+print(id(Y[0]), id(Y[1]), id(Y[2]), id(Y[3]))
+
+Y[0][2] = 'Seledochka!!!'
+
+print(Y)
+
+L = [4, 5, 6]
+Y = [list(L) for i in range(4)]
+
+print(Y)
+
+Y[0][1] = 'Locman'
+
+print(Y)
+
+L = ['stuff']
+L.append(L)
+
+print(L)

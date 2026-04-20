@@ -218,5 +218,4 @@ lines = [line.rstrip() for line in open(
     f'{FILE_PATH}/data.txt') if line[0].lower() in ['p', 'l']]
 
 print(lines)
-
 print([x + y for x in 'abc' for y in '123'])

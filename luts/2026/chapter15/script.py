@@ -1,0 +1,16 @@
+import sys
+
+print(dir(sys))
+print(len(dir(sys)))
+print(len([x for x in dir(sys) if not x.startswith('__')]))
+print(len([x for x in dir(sys) if not x[0] == '_']))
+print(dir(''))
+print(dir(str) == dir(''))
+print([a for a in dir(list) if not a.startswith('__')])
+print([a for a in dir(dict) if not a.startswith('__')])
+print(sys.__doc__)
+print(sys.getrefcount.__doc__)
+print(map.__doc__)
+print(help(sys.getrefcount))
+# print(help(sys))
+print(help(''.replace))

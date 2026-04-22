@@ -1,3 +1,5 @@
+import time
+
 count = 0
 
 while count < 5:
@@ -46,3 +48,43 @@ else:
     vowels_count += 1
 
 print(vowels_count)
+
+palindrome = 'racecar'
+is_palindrome = palindrome == palindrome[::-1]
+
+print(is_palindrome)
+
+i = 0
+j = len(palindrome) - 1
+
+is_palindrome = True
+
+while i < j:
+    if palindrome[i] != palindrome[j]:
+        is_palindrome = False
+
+        break
+
+    i += 1
+    j -= 1
+
+print(is_palindrome)
+
+data = (5, 6, 25, -256, 'cake', True)
+
+print(data)
+print(data[2])
+
+index = 0
+
+x = data[1:3]
+
+print(x)
+
+x = (1,)
+
+print(x, type(x))
+
+data = data + ('FAQ',)
+
+print(data)

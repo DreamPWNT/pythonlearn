@@ -216,3 +216,153 @@ new_s = s.lower().replace('!', '?')
 prices.sort()
 
 print(new_s)
+
+scraped_prices = ["100,50", "5,80", "", "",
+                  "25,99", "", "17,50", "0,95", "99,00"]
+
+normalized_price_lst = []
+
+count = 0
+
+while count < len(scraped_prices):
+    item = scraped_prices[count]
+
+    if item:
+        scraped_prices[count] = float(item.replace(',', '.'))
+        count += 1
+    else:
+        scraped_prices.remove('')
+
+print(scraped_prices)
+print(sum(scraped_prices))
+print(sum(scraped_prices) / len(scraped_prices))
+print(round(sum(scraped_prices) / len(scraped_prices), 2))
+print(min(scraped_prices))
+print(max(scraped_prices))
+
+tuple_1 = tuple()
+tuple_2 = (2, 5)
+
+list_1 = []
+list_2 = [2]
+
+print(tuple_2.__sizeof__() - tuple_1.__sizeof__())
+print(list_2.__sizeof__() - list_1.__sizeof__())
+
+list_1 = []
+
+print(id(list_1))
+print(list_1.__sizeof__())
+
+list_1.append('object')
+list_1.append('object')
+list_1.append('object')
+list_1.append('object')
+list_1.append('object')
+
+print(id(list_1))
+print(list_1.__sizeof__())
+
+list_1.append('object')
+list_1.append('object')
+list_1.append('object')
+list_1.append('object')
+list_1.append('object')
+
+print(id(list_1))
+print(list_1.__sizeof__())
+
+widgets = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#']
+
+index, n = 0, len(widgets)
+
+while index < n:
+    widget = widgets[index]
+
+    if index % 3 == 0 and index != 0:
+        print()
+
+    print(widget.center(3, ' '), end='')
+
+    index += 1
+else:
+    print()
+
+x = widgets.__iter__()
+
+print(widgets)
+print(type(widgets))
+print(id(widgets))
+print(x)
+print(id(x))
+print(type(x))
+
+y = next(x)
+print(y)
+
+y = next(x)
+print(y)
+
+count = 0
+
+for item in widgets:
+    if count % 3 == 0 and count != 0:
+        print()
+
+    print(item.center(3), end='')
+
+    count += 1
+else:
+    print()
+
+scraped_prices = ["", "", "100,50", "5,80", "", "",
+                  "25,99", "", "J17,50", "", "0,95", "99,00", ""]
+
+new = []
+
+for item in scraped_prices:
+    if not item:
+        continue
+
+    if not item.replace(',', '').isdigit():
+        break
+
+    item = float(item.replace(',', '.'))
+
+    new.append(item)
+
+print(new)
+
+widgets = [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['*', '0', '#']
+]
+
+x = widgets[0]
+
+print(x)
+
+x = widgets[2]
+
+print(x)
+
+x = widgets[0][1]
+
+print(x)
+
+for block in widgets:
+    print(block)
+
+for block in widgets:
+    for item in block:
+        print(item.center(3), end='')
+
+    print()
+
+for i, j, k in widgets:
+    print(i, end='')
+    print(j, end='')
+    print(k, end='')
+    print()

@@ -1,0 +1,16 @@
+exclude_names = [
+    "conf",
+    "idea",
+    "vscode",
+    "code",
+    "edge",
+    "chrome",
+    "opera",
+    "mozilla",
+    "safari",
+    "windows",
+    "venv",
+    "cache",
+    "history",
+    "docker",
+]

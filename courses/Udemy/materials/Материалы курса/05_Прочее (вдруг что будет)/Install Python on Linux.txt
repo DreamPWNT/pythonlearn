@@ -1,0 +1,43 @@
+Install Python on Linux (Ubuntu, Debian, Mint) from source code.
+
+0a) Скачиваем Python tgz архив с сайта в директорию пользователя.
+ИЛИ
+0b) Через терминал (x.x - версия).
+Терминал открыть в папке пользователя(то есть просто открыть xD ):
+wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tgz
+
+1) Обновить систему:
+a)
+sudo apt update
+b)
+sudo apt upgrade
+c)
+sudo apt update
+
+2) Установить компоненты необходимые для компиляции и сборки программ из исходников:
+sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+       libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+       libncurses5-dev libncursesw5-dev xz-utils tk-dev
+       
+ 3) Разархивировать скачанный архив:
+ tar xvf Python-3.x.x.tgz
+ 
+ 4) Перейти в директорию:
+ cd Python-3.x.х/
+ 
+ 5) Вносим изменения в конфигурацию будущей сборки:
+ ./configure --enable-optimizations --with-ensurepip=install
+ 
+ 6) Собираем и компилируем файлы сборки
+ make -j 4                   # 4 - количество потоков ЦП для ускорения этого процесса
+ 
+ 7) Наконец-то собираем все (устанавливаем Python):
+ sudo make altinstall
+ 
+ 8) Проверить работоспособность:
+ python3.x --version
+ 
+9) Полсле установки ненужные файлы удаляем (архив и разархив.):
+cd ../
+rm -rf Python-3.x.x Python-3.x.x.tgz
+

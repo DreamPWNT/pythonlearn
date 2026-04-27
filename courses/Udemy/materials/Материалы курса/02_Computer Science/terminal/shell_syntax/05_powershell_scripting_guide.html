@@ -1,0 +1,392 @@
+<p>Это руководство поможет вам освоить базовый синтаксис PowerShell.</p>
+<p>
+  Эта информация не предназначена для заучивания, но поможет вам быстро
+  сориентироваться, когда это понадобится.
+</p>
+<hr />
+<h2>1. Введение в PowerShell</h2>
+<p>
+  PowerShell — это кроссплатформенная платформа автоматизации задач и управления
+  конфигурацией, включающая командную оболочку и язык сценариев. Она
+  используется для администрирования систем, автоматизации задач и управления
+  конфигурацией в средах Windows, а также доступна на Linux и macOS.
+</p>
+<hr />
+<h2>2. Переменные</h2>
+<h3>2.1 Объявление переменных</h3>
+<p>
+  В PowerShell переменные объявляются с использованием символа <code>$</code>
+  перед именем переменной. Указывать тип данных не требуется, так как PowerShell
+  использует динамическую типизацию.
+</p>
+<pre><code class="language-powershell">
+$name = "Alex"  # Строка
+$age = 30       # Число (неявно но это int)
+</code></pre>
+<ul>
+  <li>Переменные создаются в момент присваивания.</li>
+  <li>
+    Пробелы вокруг <code>=</code> допустимы, но не рекомендуются для читаемости.
+  </li>
+  <li>
+    Значения по умолчанию интерпретируются как строки, если не указано иное.
+  </li>
+</ul>
+<h3>2.2 Чтение значения переменной</h3>
+<p>
+  Для доступа к значению переменной используйте её имя с префиксом
+  <code>$</code>.
+</p>
+<pre><code class="language-powershell">
+echo $name  # Выводит: Alex
+</code></pre>
+<p>
+  Рекомендуется использовать фигурные скобки <code>${}</code> для явного
+  указания границ имени переменной, особенно в строках:
+</p>
+<pre><code class="language-powershell">
+echo "${name}123"  # Выводит: Alex123
+</code></pre>
+<p>
+  Без фигурных скобок PowerShell может интерпретировать
+  <code>$name123</code> как имя несуществующей переменной.
+</p>
+<h3>2.3 Изменение значения</h3>
+<p>Переменные можно переопределять, просто присваивая новое значение:</p>
+<pre><code class="language-powershell">
+$name = "Sasha"
+echo $name  # Выводит: Sasha
+</code></pre>
+<h3>2.4 Типы переменных</h3>
+<p>
+  PowerShell поддерживает различные типы данных, включая строки, числа, массивы
+  и объекты. Тип переменной можно проверить с помощью метода
+  <code>GetType()</code>.
+</p>
+<pre><code class="language-powershell">
+$name.GetType()  # Выводит: System.String
+$age.GetType()   # Выводит: System.Int32
+</code></pre>
+<p>
+  Для <code>явного</code> указания типа используйте квадратные скобки, например:
+</p>
+<pre><code class="language-powershell">
+[int]$age = 30
+</code></pre>
+<hr />
+<h2>3. Переменные окружения</h2>
+<h3>3.1 Доступ к переменным окружения</h3>
+<p>Переменные окружения доступны через виртуальный диск <code>$env:</code>.</p>
+<pre><code class="language-powershell">
+$env:PATH  # Выводит переменную PATH
+</code></pre>
+<h3>3.2 Установка переменных окружения</h3>
+<p>Для установки переменной окружения используйте <code>$env:</code>.</p>
+<pre><code class="language-powershell">
+$env:MY_VAR = "value"
+</code></pre>
+<p>Пример проверки установленной переменной:</p>
+<pre><code class="language-powershell">
+$env:MY_VAR  # Выводит: value
+</code></pre>
+<hr />
+<h2>4. Арифметика</h2>
+<p>
+  PowerShell поддерживает базовые арифметические операции с использованием
+  операторов <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>.
+</p>
+<pre><code class="language-powershell">
+$count = 0
+$count = $count + 1
+echo $count  # Выводит: 1
+</code></pre>
+<p>Альтернативный синтаксис для инкремента:</p>
+<pre><code class="language-powershell">
+$count++
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: PowerShell автоматически выбирает подходящий
+    тип данных для результата, например, <code>System.Double</code> для дробных
+    чисел.
+  </p>
+</blockquote>
+<hr />
+<h2>5. Условия и сравнения</h2>
+<h3>5.1 Условные операторы If</h3>
+<p>
+  Для выполнения кода на основе условий используйте конструкцию <code>if</code>.
+</p>
+<pre><code class="language-powershell">
+if ($name -eq "Alex") {
+    echo "Привет, Alex!"
+}
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Важно</strong>: Заключайте переменные в кавычки в условиях, чтобы
+    избежать ошибок при пустых значениях.
+  </p>
+</blockquote>
+<p>Пример с <code>else</code>:</p>
+<pre><code class="language-powershell">
+if ($age -gt 18) {
+    echo "Взрослый"
+} else {
+    echo "Несовершеннолетний"
+}
+</code></pre>
+<h3>5.2 Оператор Switch</h3>
+<p>
+  Оператор <code>switch</code> позволяет выполнять различные блоки кода в
+  зависимости от значения переменной.
+</p>
+<pre><code class="language-powershell">
+switch ($name) {
+    "Alex" { echo "Привет, Alex!" }
+    "Sasha" { echo "Привет, Sasha!" }
+    default { echo "Привет, незнакомец!" }
+}
+</code></pre>
+<h3>5.3 Операторы сравнения</h3>
+<p>PowerShell предоставляет следующие операторы сравнения:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Оператор</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-eq</code></td>
+      <td>Равно</td>
+    </tr>
+    <tr>
+      <td><code>-ne</code></td>
+      <td>Не равно</td>
+    </tr>
+    <tr>
+      <td><code>-gt</code></td>
+      <td>Больше</td>
+    </tr>
+    <tr>
+      <td><code>-lt</code></td>
+      <td>Меньше</td>
+    </tr>
+    <tr>
+      <td><code>-ge</code></td>
+      <td>Больше или равно</td>
+    </tr>
+    <tr>
+      <td><code>-le</code></td>
+      <td>Меньше или равно</td>
+    </tr>
+  </tbody>
+</table>
+<p>Пример:</p>
+<pre><code class="language-powershell">
+if ($age -gt 18) {
+    echo "Взрослый"
+}
+</code></pre>
+<hr />
+<h2>6. Циклы</h2>
+<h3>6.1 Цикл For</h3>
+<p>Цикл <code>for</code> используется, когда известно количество итераций.</p>
+<pre><code class="language-powershell">
+for ($i = 1; $i -le 5; $i++) {
+    echo $i
+}
+</code></pre>
+<h3>6.2 Цикл Foreach</h3>
+<p>Цикл <code>foreach</code> удобен для перебора коллекций.</p>
+<pre><code class="language-powershell">
+$array = 1, 2, 3, 4, 5
+foreach ($item in $array) {
+    echo $item
+}
+</code></pre>
+<h3>6.3 Цикл While</h3>
+<p>Цикл <code>while</code> выполняется, пока условие истинно.</p>
+<pre><code class="language-powershell">
+$i = 1
+while ($i -le 5) {
+    echo $i
+    $i++
+}
+</code></pre>
+<h3>6.4 Цикл Do-While</h3>
+<p>
+  Цикл <code>do-while</code> выполняется хотя бы один раз, затем продолжается,
+  пока условие истинно.
+</p>
+<pre><code class="language-powershell">
+$i = 1
+do {
+    echo $i
+    $i++
+} while ($i -le 5)
+</code></pre>
+<hr />
+<h2>7. Функции</h2>
+<h3>7.1 Определение функций</h3>
+<p>Функции определяются с помощью ключевого слова <code>function</code>.</p>
+<pre><code class="language-powershell">
+function Greet {
+    param (
+        [string]$name
+    )
+    echo "Привет, $name!"
+}
+
+Greet -name "Alex"  # Выводит: Привет, Alex!
+</code></pre>
+<h3>7.2 Параметры</h3>
+<p>
+  Функции могут принимать параметры, которые могут иметь значения по умолчанию.
+</p>
+<pre><code class="language-powershell">
+function Greet {
+    param (
+        [string]$name = "Guest"
+    )
+    echo "Привет, $name!"
+}
+
+Greet  # Выводит: Привет, Guest!
+</code></pre>
+<hr />
+<h2>8. Массивы</h2>
+<h3>8.1 Создание массивов</h3>
+<p>Массивы создаются путём разделения элементов запятыми.</p>
+<pre><code class="language-powershell">
+$array = 1, 2, 3, 4, 5
+</code></pre>
+<h3>8.2 Доступ к элементам массива</h3>
+<p>Элементы массива доступны по индексам, начиная с 0.</p>
+<pre><code class="language-powershell">
+echo $array[0]  # Выводит: 1
+</code></pre>
+<h3>8.3 Изменение массивов</h3>
+<p>Массивы можно изменять, присваивая новые значения по индексам.</p>
+<pre><code class="language-powershell">
+$array[0] = 10
+echo $array[0]  # Выводит: 10
+</code></pre>
+<hr />
+<h2>9. Работа с файлами</h2>
+<h3>9.1 Чтение файлов</h3>
+<p>Используйте <code>Get-Content</code> для чтения содержимого файла.</p>
+<pre><code class="language-powershell">
+$content = Get-Content -Path "file.txt"
+echo $content
+</code></pre>
+<h3>9.2 Запись в файлы</h3>
+<p>Используйте <code>Set-Content</code> для записи в файл.</p>
+<pre><code class="language-powershell">
+Set-Content -Path "file.txt" -Value "Привет, мир!"
+</code></pre>
+<h3>9.3 Добавление в файлы</h3>
+<p>Используйте <code>Add-Content</code> для добавления текста в файл.</p>
+<pre><code class="language-powershell">
+Add-Content -Path "file.txt" -Value "Это добавленный текст."
+</code></pre>
+<hr />
+<h2>10. Аргументы командной строки</h2>
+<h3>10.1 Доступ к аргументам</h3>
+<p>
+  Аргументы командной строки доступны через <code>$args</code> или через
+  определение параметров.
+</p>
+<pre><code class="language-powershell">
+param (
+    [string]$name
+)
+
+echo "Привет, $name!"
+</code></pre>
+<p>Запустите скрипт с помощью: <code>.\script.ps1 -name "Alex"</code></p>
+<hr />
+<h2>11. Ввод пользователя</h2>
+<h3>11.1 Запрос ввода</h3>
+<p>Используйте <code>Read-Host</code> для запроса ввода у пользователя.</p>
+<pre><code class="language-powershell">
+$name = Read-Host "Введите ваше имя"
+echo "Привет, $name!"
+</code></pre>
+<hr />
+<h2>12. Значения по умолчанию</h2>
+<h3>12.1 Установка значений по умолчанию для параметров</h3>
+<p>Значения по умолчанию можно задавать для параметров функций.</p>
+<pre><code class="language-powershell">
+function Greet {
+    param (
+        [string]$name = "Guest"
+    )
+    echo "Привет, $name!"
+}
+
+Greet  # Выводит: Привет, Guest!
+</code></pre>
+<h3>12.2 Использование $PSDefaultParameterValues</h3>
+<p>
+  Глобальные значения по умолчанию для параметров командлетов можно задавать с
+  помощью <code>$PSDefaultParameterValues</code>.
+</p>
+<pre><code class="language-powershell">
+$PSDefaultParameterValues = @{
+    "Send-MailMessage:SmtpServer" = "smtp.example.com"
+}
+</code></pre>
+<hr />
+<h2>13. Примеры</h2>
+<h3>13.1 Простой счётчик</h3>
+<pre><code class="language-powershell">
+$count = 0
+while ($count -lt 5) {
+    echo "Счётчик: $count"
+    $count++
+}
+</code></pre>
+<h3>13.2 Проверка существования файла</h3>
+<pre><code class="language-powershell">
+if (Test-Path "file.txt") {
+    echo "file.txt существует"
+} else {
+    echo "file.txt не существует"
+}
+</code></pre>
+<h3>13.3 Цикл по файлам</h3>
+<pre><code class="language-powershell">
+foreach ($file in Get-ChildItem *.txt) {
+    echo "Обработка файла: $file"
+}
+</code></pre>
+<hr />
+<h2>14. Подсказки и рекомендации</h2>
+<ul>
+  <li>
+    <strong>Заключайте переменные в кавычки</strong>: Используйте
+    <code>"$var"</code> в условиях, чтобы избежать ошибок с пустыми значениями.
+  </li>
+  <li>
+    <strong
+      >Используйте <code>Write-Output</code> вместо <code>echo</code> в файлах
+      сценариях</strong
+    >: Это более формальный способ вывода данных.
+  </li>
+  <li>
+    <strong>Избегайте бесконечных циклов</strong>: Убедитесь, что условие цикла
+    рано или поздно станет ложным.
+  </li>
+  <li>
+    <strong>Документируйте функции</strong>: Используйте комментарии для
+    описания параметров и назначения функций.
+  </li>
+  <li>
+    <strong>Проверяйте ввод</strong>: Используйте атрибуты валидации, такие как
+    <code>[ValidateSet]</code>, для параметров функций.
+  </li>
+</ul>
+<hr />

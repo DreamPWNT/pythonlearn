@@ -1,0 +1,489 @@
+<p>
+  Это руководство поможет вам освоить базовый синтаксис оболочек
+  <code>sh</code>, <code>bash</code> и <code>zsh</code>. Эта информация не
+  предназначена для заучивания, но поможет вам быстро сориентироваться, когда
+  это понадобится.
+</p>
+<h2>1. Переменные</h2>
+<h3>1.1 Объявление переменных</h3>
+<p>
+  Переменные в shell создаются простым присваиванием значения. Пробелы вокруг
+  знака <code>=</code> недопустимы. Все значения по умолчанию интерпретируются
+  как строки, даже если они выглядят как числа.
+</p>
+<pre><code class="language-bash">
+name=Alex     # ВАЖНО: без пробелов вокруг "="
+age=30        # По умолчанию - строки
+</code></pre>
+<h3>1.2 Чтение значения переменной</h3>
+<p>
+  Для доступа к значению переменной используется символ <code>$</code> перед её
+  именем.
+</p>
+<pre><code class="language-bash">
+echo $name    # Выводит: Alex
+</code></pre>
+<p>Пример использования переменной в команде:</p>
+<pre><code class="language-bash">
+name="Alex"
+echo "Hello, $name!"
+# Выводит: Hello, Alex!
+</code></pre>
+<ul>
+  <li>Shell-переменные создаются в момент присваивания.</li>
+  <li>Пробелы вокруг <code>=</code> вызовут ошибку.</li>
+  <li>
+    Все значения - строки (в отличие от Python, где есть явные типы данных).
+  </li>
+</ul>
+<p>
+  Желательно использовать фигурные скобки <code>${}</code> для явного указания
+  границ имени переменной, особенно если за переменной следует текст.
+</p>
+<pre><code class="language-bash">
+echo "${name}123"   # Выводит: Alex123
+</code></pre>
+<p>
+  Без фигурных скобок интерпретатор оболочки может попытаться найти переменную
+  <code>name123</code>, что приведёт к ошибке или пустому выводу.
+</p>
+<pre><code class="language-bash">
+var=hello
+echo $varworld  # Ошибка: ищет переменную varworld
+echo ${var}world  # Выводит: helloworld
+</code></pre>
+<h3>1.3 Изменение значения</h3>
+<p>Чтобы изменить значение переменной, просто присвойте ей новое значение:</p>
+<pre><code class="language-bash">
+name="Sasha"
+</code></pre>
+<h3>1.4 Добавление к существующему значению</h3>
+<p>
+  Для добавления текста к существующему значению переменной можно использовать
+  конкатенацию:
+</p>
+<pre><code class="language-bash">
+name="${name} Tukas"
+</code></pre>
+<p>
+  В <code>bash</code> и <code>zsh</code> также доступен оператор
+  <code>+=</code>:
+</p>
+<pre><code class="language-bash">
+name+=" Tukas"
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: Оператор <code>+=</code> не поддерживается в
+    <code>sh</code>, используйте конкатенацию с <code>${}</code> для
+    совместимости.
+  </p>
+</blockquote>
+<h2>2. Переменные окружения</h2>
+<p>
+  Переменные окружения - это переменные, которые доступны дочерним процессам
+  (например, другим скриптам или программам, таким как <code>python</code> или
+  <code>ls</code>). Чтобы сделать переменную переменной окружения, используется
+  команда <code>export</code>.
+</p>
+<pre><code class="language-bash">
+export name="Alex"
+</code></pre>
+<p>Или задайте переменную и экспортируйте её отдельно:</p>
+<pre><code class="language-bash">
+name="Alex"
+export name
+</code></pre>
+<p>Пример:</p>
+<pre><code class="language-bash">
+export name="Alex"
+env | grep name  # Показывает name=Alex в списке переменных окружения
+bash -c 'echo $name'  # Выводит: Alex
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Важно</strong>: Только экспортированные переменные наследуются
+    дочерними процессами. Именно этот факт делает их переменными окружения.
+  </p>
+</blockquote>
+<h2>3. Арифметика</h2>
+<p>
+  Shell по умолчанию рассматривает все переменные как строки, но для выполнения
+  арифметических операций можно использовать конструкцию
+  <code>$(( ))</code>. Символ <code>$</code> означает какое-то выражение, а
+  двойные круглые скобки — что действия нужно проводить как над числами.
+</p>
+<pre><code class="language-bash">
+count=0
+count=$((count + 1))  # Отдельно для count в скобках $ не нужно
+echo "$count"   # Выводит: 1
+</code></pre>
+<p>
+  В <code>bash</code> и <code>zsh</code> (кроме <code>sh</code>) также доступна
+  конструкция <code>(( ))</code> для арифметики:
+</p>
+<pre><code class="language-bash">
+((count++))
+</code></pre>
+<p>
+  В <code>sh</code> для арифметики часто используется команда
+  <code>expr</code> (expression - выражение):
+</p>
+<pre><code class="language-bash">
+count=0
+count=$(expr $count + 1)
+echo $count  # Выводит: 1
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: Конструкции <code>$(( ))</code> и
+    <code>(( ))</code> предпочтительнее в <code>bash/zsh</code>, так как они
+    более современные и удобные.
+  </p>
+</blockquote>
+<h2>4. Условия и сравнения</h2>
+<h3>4.1 Строковые сравнения</h3>
+<p>
+  Для проверки условий в shell используется команда <code>test</code> (или её
+  синоним <code>[ ]</code>). Строковые сравнения выполняются с помощью
+  операторов <code>=</code> (равно) и <code>!=</code> (не равно).
+</p>
+<pre><code class="language-bash">
+if [ "$name" = "Alex" ]; then
+  echo "Hello, Alex!"
+fi
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Важно</strong>: Всегда заключайте переменные в кавычки
+    (<code>"$name"</code>) в <code>[ ]</code>, чтобы избежать ошибок, если
+    переменная пуста.
+  </p>
+</blockquote>
+<p>
+  В <code>bash</code> и <code>zsh</code> (кроме <code>sh</code>) доступен
+  расширенный синтаксис <code>[[ ]]</code>, который более гибкий и поддерживает
+  шаблоны.
+</p>
+<pre><code class="language-bash">
+if [[ $name == Alex ]]; then
+  echo "Hello again!"
+fi
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: <code>[[ ]]</code> не требует экранирования
+    специальных символов и поддерживает шаблоны, например, <code>A*</code> для
+    строк, начинающихся с "A". Этот синтаксис недоступен в <code>sh</code>.
+  </p>
+</blockquote>
+<h3>4.2 Числовые сравнения</h3>
+<p>
+  Для числовых сравнений используются операторы <code>-eq</code>,
+  <code>-ne</code>, <code>-gt</code>, <code>-lt</code>, <code>-ge</code>,
+  <code>-le</code>.
+</p>
+<pre><code class="language-bash">
+if [ "$age" -gt 18 ]; then
+  echo "Adult"
+fi
+</code></pre>
+<p><strong>Операторы сравнения:</strong></p>
+<ul>
+  <li><code>-eq</code> — равно</li>
+  <li><code>-ne</code> — не равно</li>
+  <li><code>-gt</code> — больше</li>
+  <li><code>-lt</code> — меньше</li>
+  <li><code>-ge</code> — больше или равно</li>
+  <li><code>-le</code> — меньше или равно</li>
+</ul>
+<p>Пример с использованием переменных:</p>
+<pre><code class="language-bash">
+a=10
+b=20
+if [ $a -lt $b ]; then
+  echo "$a is less than $b"
+fi
+</code></pre>
+<p>Пример с <code>if-elif-else</code>:</p>
+<pre><code class="language-bash">
+#!/bin/bash
+echo "Please enter a number: "
+read num
+if [ $num -gt 0 ]; then
+  echo "$num is positive"
+elif [ $num -lt 0 ]; then
+  echo "$num is negative"
+else
+  echo "$num is zero"
+fi
+</code></pre>
+<h2>5. Удаление переменных</h2>
+<p>
+  Для удаления переменной используется команда <code>unset</code>. После этого
+  переменная становится недоступной.
+</p>
+<pre><code class="language-bash">
+unset name
+</code></pre>
+<h2>6. Обработка аргументов командной строки</h2>
+<p>
+  Shell предоставляет специальные переменные для работы с аргументами командной
+  строки.
+</p>
+<pre><code class="language-bash">
+echo $0      # Имя скрипта
+echo $1      # Первый аргумент
+echo $2      # Второй аргумент
+echo $#      # Количество аргументов
+echo "$@"    # Все аргументы списком
+</code></pre>
+<p>Если выполнить <code>./script.sh arg1 arg2</code>, вывод будет:</p>
+<pre><code>
+Script name: ./script.sh
+First argument: arg1
+Second argument: arg2
+Number of arguments: 2
+All arguments: arg1 arg2
+</code></pre>
+<h2>7. Ввод пользователя</h2>
+<p>
+  Команда <code>read</code> позволяет считывать ввод пользователя и сохранять
+  его в переменную.
+</p>
+<pre><code class="language-bash">
+read user_name
+echo "Привет, $user_name!"
+</code></pre>
+<p>Можно считывать несколько значений за раз:</p>
+<pre><code class="language-bash">
+read first_name last_name
+echo "Hello, $first_name $last_name!"
+</code></pre>
+<h2>8. Значения по умолчанию</h2>
+<p>
+  Для обработки случаев, когда переменная не установлена, используются
+  конструкции <code>${var:-default}</code> и <code>${var:=default}</code>.
+</p>
+<pre><code class="language-bash">
+echo ${name:-"Guest"}   # Если переменная не установлена, выведет "Guest"
+echo ${name:="Guest"}   # То же, но также присвоит "Guest" переменной name
+</code></pre>
+<p><strong>Разница:</strong></p>
+<ul>
+  <li>
+    <code>${var:-default}</code>: возвращает <code>default</code>, если
+    <code>var</code> не установлена, но не изменяет <code>var</code>.
+  </li>
+  <li>
+    <code>${var:=default}</code>: возвращает <code>default</code> и присваивает
+    его <code>var</code>, если <code>var</code> не установлена.
+  </li>
+</ul>
+<h2>9. Примеры</h2>
+<h3>Простой счётчик с циклом</h3>
+<pre><code class="language-bash">
+count=0
+while [ $count -lt 5 ]; do
+  echo "Счётчик: $count"
+  ((count++))
+done
+</code></pre>
+<h3>Установка переменной окружения и запуск</h3>
+<pre><code class="language-bash">
+export MODE=debug
+python my_script.py
+</code></pre>
+<h3>Проверка существования файла</h3>
+<p>Флаг <code>-f</code> означает проверку существования файла.</p>
+<pre><code class="language-bash">
+if [ -f "file.txt" ]; then
+  echo "file.txt exists"
+else
+  echo "file.txt does not exist"
+  touch "file.txt"
+  echo "file.txt was created"
+fi
+</code></pre>
+<h3>Цикл for</h3>
+<pre><code class="language-bash">
+for i in 1 2 3 4 5; do
+  echo "Number: $i"
+done
+</code></pre>
+<h3>Цикл for по файлам</h3>
+<pre><code class="language-bash">
+for file in *.txt; do
+  echo "Processing $file"
+done
+</code></pre>
+<h2>10. Подсказки и рекомендации</h2>
+<ul>
+  <li>
+    <strong>Заключайте переменные в кавычки</strong>: Используйте
+    <code>"$var"</code>, чтобы избежать ошибок, если переменная содержит пробелы
+    или пуста.
+  </li>
+  <li>
+    <strong>Не ставьте пробелы вокруг <code>=</code></strong
+    >: Это вызовет синтаксическую ошибку при присваивании.
+  </li>
+  <li>
+    <strong>Используйте <code>[[ ... ]]</code> в <code>bash/zsh</code></strong
+    >: Этот синтаксис более надёжен и гибок, чем <code>[ ]</code>.
+  </li>
+  <li>
+    <strong>Добавьте <code>set -e</code> в начало скрипта</strong>: Это заставит
+    скрипт завершаться при первой ошибке.
+  </li>
+  <li>
+    <strong>Используйте <code>set -u</code></strong
+    >: Это вызовет ошибку при попытке использовать неопределённую переменную.
+  </li>
+</ul>
+<h2>11. Функции (Functions)</h2>
+<p>
+  Функции в <code>bash</code> и <code>zsh</code> позволяют группировать команды
+  для повторного использования, делая скрипты более модульными и читабельными.
+</p>
+<h3>Определение функции</h3>
+<p>Есть два способа определения функции:</p>
+<ol>
+  <li>
+    С использованием имени функции и круглых скобок:
+    <pre><code class="language-bash">
+function_name () {
+  # команды
+}
+</code></pre>
+  </li>
+  <li>
+    С использованием ключевого слова <code>function</code>:
+    <pre><code class="language-bash">
+function function_name {
+  # команды
+}
+</code></pre>
+  </li>
+</ol>
+<h3>Вызов функции</h3>
+<p>Для вызова функции просто укажите её имя:</p>
+<pre><code class="language-bash">
+function_name
+</code></pre>
+<h3>Переменные в функциях</h3>
+<p>
+  По умолчанию переменные в функциях глобальные, но можно сделать их локальными
+  с помощью ключевого слова <code>local</code>.
+</p>
+<pre><code class="language-bash">
+my_function () {
+  local var="local value"
+  echo $var
+}
+my_function
+echo $var  # Пусто, так как var локальна
+</code></pre>
+<h3>Возврат значений</h3>
+<p>
+  Функции в <code>bash</code> не возвращают значения напрямую, но можно
+  использовать <code>return</code> для возврата кода завершения или вывести
+  значение в стандартный вывод.
+</p>
+<pre><code class="language-bash">
+my_function () {
+  return 0
+}
+my_function
+echo $? # Выводит: 0
+</code></pre>
+<h3>Передача аргументов</h3>
+<p>
+  Аргументы передаются в функцию через <code>$1</code>, <code>$2</code> и т.д.
+</p>
+<pre><code class="language-bash">
+greet () {
+  echo "Hello, $1!"
+}
+greet "Alice"  # Выводит: Hello, Alice!
+</code></pre>
+<p>
+  Также доступны <code>$#</code> (количество аргументов) и <code>$@</code> (все
+  аргументы).
+</p>
+<h2>12. Массивы (Arrays) (только для <code>bash</code> и <code>zsh</code>)</h2>
+<p>
+  Массивы позволяют хранить несколько значений в одной переменной. Они
+  поддерживаются только в <code>bash</code> и <code>zsh</code>.
+</p>
+<h3>Объявление массива</h3>
+<pre><code class="language-bash">
+myArray=("cat" "dog" "mouse" "frog")
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: Элементы разделяются пробелами, а не запятыми.
+    Строки заключаются в кавычки.
+  </p>
+</blockquote>
+<h3>Доступ к элементам массива</h3>
+<p>Для доступа ко всем элементам:</p>
+<pre><code class="language-bash">
+for str in "${myArray[@]}"; do
+  echo $str
+done
+</code></pre>
+<p>Для доступа к конкретному элементу (индексы начинаются с 0):</p>
+<pre><code class="language-bash">
+echo ${myArray[0]}  # Выводит: cat
+echo ${myArray[1]}  # Выводит: dog
+</code></pre>
+<h3>Цикл по индексам массива</h3>
+<pre><code class="language-bash">
+for i in "${!myArray[@]}"; do
+  echo "element $i is ${myArray[$i]}"
+done
+</code></pre>
+<h2>13. Циклы for</h2>
+<p>Циклы <code>for</code> используются для итерации по списку элементов.</p>
+<h3>Цикл for по списку</h3>
+<pre><code class="language-bash">
+for i in 1 2 3 4 5; do
+  echo "Number: $i"
+done
+</code></pre>
+<h3>Цикл for по файлам</h3>
+<pre><code class="language-bash">
+for file in *.txt; do
+  echo "Processing $file"
+done
+</code></pre>
+<h3>Цикл for с диапазоном (в <code>bash</code>)</h3>
+<pre><code class="language-bash">
+for i in {1..5}; do
+  echo $i
+done
+</code></pre>
+<h2>14. Работа с файлами</h2>
+<h3>Проверка существования файла</h3>
+<pre><code class="language-bash">
+if [ -f "file.txt" ]; then
+  echo "file.txt exists"
+else
+  echo "file.txt does not exist"
+fi
+</code></pre>
+<h3>Чтение из файла</h3>
+<pre><code class="language-bash">
+while read line; do
+  echo $line
+done < input.txt
+</code></pre>
+<h3>Запись в файл</h3>
+<pre><code class="language-bash">
+echo "Hello, World!" > output.txt
+</code></pre>
+<h3>Добавление в файл</h3>
+<pre><code class="language-bash">
+echo "More text" >> output.txt
+</code></pre>

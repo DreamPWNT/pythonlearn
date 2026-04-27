@@ -1,0 +1,70 @@
+ping localhost  # для примера используем эту программу.
+
+ping localhost > out.txt	   Перезаписывает stdout в файл.
+ping localhost >> out.txt	   Добавляет stdout в конец файла.
+ping localhost 2> err.txt	   Перезаписывает stderr в файл.
+ping localhost 2>> err.txt	   Добавляет stderr в конец файла.
+ping localhost > out.txt 2>&1	   stdout и stderr — в один файл.
+ping localhost *> all.txt	   stdout + stderr в один файл (PowerShell)
+
+ping localhost > nul	           Отключить stdout (вместо /dev/null).
+$null = ping localhost             Отключить stdout (PowerShell)
+ping localhost > $null             Отключить stdout (PowerShell)
+
+ping localhost 2> nul	           Отключить stderr.
+ping localhost 2> $null	           Отключить stderr(PowerShell).
+
+ping localhost > nul 2>&1	   Полностью подавить вывод.
+ping localhost *> $null	           Полностью подавить вывод(PowerShell).
+
+ping localhost < input.txt	   Ввод читается из файла.
+
+
+Сменить кодировку в терминале cmd на UTF-8 (временно)(chcp 65001 — это UTF-8):
+chcp 65001
+ping localhost > out.txt
+
+
+НА СЛЕДУЮЩИЕ ЛЕКЦИИ:
+(Смотреть после соответствующей лекции))
+
+Будет запущен отдельный процесс с conhost:
+start ping localhost
+
+start в cmd.exe:
+start запускает процесс в новом окне, но
+редиректы std не работают напрямую с start, если не использовать командную строку,
+и не экранировать знаком ^ перенаправление std, чтоб оно не применилось к start:
+(Не путать флаг /c с /k когда через ярлык это делается)
+start cmd /c "ping localhost > out.txt 2>&1"
+start cmd /c ping localhost ^> out.txt ^2>&1
+
+Процесс будет запущен в фоне(background). Вывод в текущий терминал, если не перенаправить:
+start /B ping localhost
+
+Через cmd: запускает оболочку PS с командой. -WindowStyle Hidden - чтоб скрыть окно,
+после выполнения команды powershell завершится (это по сути одноразовая работа оболочки
+для выполнения команды, когда указывается так powershell -Command ... :
+powershell -Command "Start-Process -FilePath ping -ArgumentList "localhost" -WindowStyle Hidden"
+
+Можно использовать PowerShell с UTF-8, но вывод нужно получать в оболочку, и перенапрвлять
+через pipe в другую команду. Символ > в Power Shell это на самом деле команда (программа)
+Out-File, котороая и пишет в utf-16le (если PS по умолчанию такую использует),
+для нее можно вот так указать Out-File с указанием вывода в файл для нее в кодировке utf-8:
+ping localhost | Out-File -Encoding UTF8 out.txt
+но это не удобно, и скорее всего вы получите utf-8 with BOM (не чистый).
+
+Довольно сложная команда, для того чтоб кодировка была utf-8 ( utf-8 with BOM (не чистый))
+(обычно такое не нужно)(просто пример показываю), через Start-Process напрямую нельзя указать кодировку, поэтому используем промежуточную оболочку и обратите внимание на экранирования разным
+типом кавычек:
+powershell -Command "Start-Process powershell -ArgumentList '-Command ping localhost | Out-File -FilePath out.txt -Encoding utf8' -WindowStyle Hidden"
+
+Но имейте ввиду, что в примере выше будет кодировка utf-8 со спецификатором (с BOM),
+это, опять таки, нюанс Windows, это значит, что в начале файла (перед текстом) есть
+невидимая последовательность, описывающая порядок байтов в файле (намек на кодировку).
+Из-за этого это не "чистый" utf-8. Пока игнорируем это, про кодировки будет отдельная
+тема в курсе.
+
+Не переживайте за это, мы будем работать через python дальше, и все это будет неважно,
+если создавать файлы через python, а не через stdout. И посмотрим как читать такие файлы
+через python с кодировкой utf-8-with-BOM. Поэтому расслабились по этому поводу😉

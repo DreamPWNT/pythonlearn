@@ -1,0 +1,416 @@
+<p>
+  Это руководство поможет вам освоить базовый синтаксис командной оболочки
+  <code>cmd</code> в Windows. Эта информация не предназначена для заучивания, но
+  поможет вам быстро сориентироваться, когда это понадобится.
+</p>
+<hr />
+<h2>1. Переменные</h2>
+<blockquote>
+  <p>
+    <strong>Важно</strong>: В cmd все переменные являются переменными окружения.
+  </p>
+</blockquote>
+<h3>1.1 Объявление переменных</h3>
+<p>
+  Переменные в <code>cmd</code> создаются с помощью команды <code>SET</code>.
+  Пробелы вокруг знака <code>=</code>
+  недопустимы, так как это вызовет синтаксическую ошибку. Все значения по
+  умолчанию интерпретируются как строки.
+</p>
+<pre><code class="language-cmd">
+SET name=Alex
+SET age=30
+</code></pre>
+<blockquote>
+  <p>
+    <strong>!!!</strong>: <code>REM</code> это "символ" комментария в файлах
+    сценариев для cmd. Ключевые слова можно писать в нижнем регистре, например,
+    <code>SET</code> или <code>set</code>, <code>ECHO</code> или
+    <code>echo</code>.
+  </p>
+</blockquote>
+<p>Пример использования переменной в команде:</p>
+<pre><code class="language-cmd">
+SET name=Alex
+ECHO Привет, %name%!  REM Выводит: Привет, Alex!
+</code></pre>
+<ul>
+  <li>Переменные создаются в момент присваивания.</li>
+  <li>Пробелы вокруг <code>=</code> вызовут ошибку.</li>
+  <li>
+    Все значения являются строками, в отличие от языков с явными типами данных,
+    таких как Python.
+  </li>
+</ul>
+<h3>1.2 Чтение значения переменной</h3>
+<p>
+  Для доступа к значению переменной используются символы <code>%</code>
+  перед и после её имени.
+</p>
+<pre><code class="language-cmd">
+ECHO %name%  REM Выводит: Alex
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Важно</strong>: Если переменная не определена,
+    <code>ECHO %name%</code> выведет <code>%name%</code>, если не использовать
+    кавычки или проверку.
+  </p>
+</blockquote>
+<h3>1.3 Изменение значения</h3>
+<p>Чтобы изменить значение переменной, просто присвойте ей новое значение:</p>
+<pre><code class="language-cmd">
+SET name=Sasha
+</code></pre>
+<h3>1.4 Добавление к существующему значению</h3>
+<p>
+  Для добавления текста к существующему значению переменной используется
+  конкатенация:
+</p>
+<pre><code class="language-cmd">
+SET name=%name% Tukas
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: В <code>cmd</code> нет оператора
+    <code>+=</code> для строк, как в <code>bash/zsh</code>.
+  </p>
+</blockquote>
+<hr />
+<h2>2. Арифметика</h2>
+<p>
+  В <code>cmd</code> арифметические операции выполняются с помощью команды
+  <code>SET /A</code>. Это позволяет интерпретировать значения переменных как
+  числа.
+</p>
+<pre><code class="language-cmd">
+SET /A count=0
+SET /A count+=1
+ECHO %count%  REM Выводит: 1
+</code></pre>
+<p>Поддерживаемые операции:</p>
+<ul>
+  <li><code>+</code> — сложение</li>
+  <li><code>-</code> — вычитание</li>
+  <li><code>*</code> — умножение</li>
+  <li><code>/</code> — деление</li>
+  <li><code>%</code> — остаток от деления</li>
+</ul>
+<p>Пример:</p>
+<pre><code class="language-cmd">
+SET /A result=5*3
+ECHO %result%  REM Выводит: 15
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: <code>SET /A</code> не поддерживает числа с
+    плавающей точкой, только целые.
+  </p>
+</blockquote>
+<hr />
+<h2>3. Условия и сравнения</h2>
+<h3>3.1 Строковые сравнения</h3>
+<p>
+  Для проверки условий используется команда <code>IF</code>. Строковые сравнения
+  выполняются с помощью оператора <code>==</code>.
+</p>
+<pre><code class="language-cmd">
+IF "%name%"=="Alex" ECHO Привет, Alex!
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Важно</strong>: Всегда заключайте переменные в кавычки
+    <code>"%name%"</code>, чтобы избежать ошибок, если переменная пуста .
+  </p>
+</blockquote>
+<p>Пример с <code>IF-ELSE</code>:</p>
+<pre><code class="language-cmd">
+IF "%name%"=="Alex" (
+    ECHO Привет, Alex!
+) ELSE (
+    ECHO Вы не Alex.
+)
+</code></pre>
+<h3>3.2 Числовые сравнения</h3>
+<p>
+  Для числовых сравнений используются операторы <code>EQU</code>,
+  <code>NEQ</code>, <code>LSS</code>, <code>LEQ</code>, <code>GTR</code>,
+  <code>GEQ</code>.
+</p>
+<pre><code class="language-cmd">
+IF %age% GTR 18 ECHO Взрослый
+</code></pre>
+<p><strong>Операторы сравнения:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Оператор</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>EQU</code></td>
+      <td>Равно</td>
+    </tr>
+    <tr>
+      <td><code>NEQ</code></td>
+      <td>Не равно</td>
+    </tr>
+    <tr>
+      <td><code>LSS</code></td>
+      <td>Меньше</td>
+    </tr>
+    <tr>
+      <td><code>LEQ</code></td>
+      <td>Меньше или равно</td>
+    </tr>
+    <tr>
+      <td><code>GTR</code></td>
+      <td>Больше</td>
+    </tr>
+    <tr>
+      <td><code>GEQ</code></td>
+      <td>Больше или равно</td>
+    </tr>
+  </tbody>
+</table>
+<p>Пример с числовым сравнением:</p>
+<pre><code class="language-cmd">
+SET age=20
+IF %age% GTR 18 (
+    ECHO Взрослый
+) ELSE (
+    ECHO Несовершеннолетний
+)
+</code></pre>
+<hr />
+<h2>4. Удаление переменных</h2>
+<p>Для удаления переменной достаточно присвоить ей пустое значение.</p>
+<pre><code class="language-cmd">
+SET name=
+</code></pre>
+<p>
+  После этого переменная становится неопределённой, и попытка вывести её
+  значение <code>ECHO %name%</code> покажет <code>%name%</code>.
+</p>
+<hr />
+<h2>5. Обработка аргументов командной строки</h2>
+<p>
+  <code>cmd</code> предоставляет специальные переменные для работы с аргументами
+  командной строки.
+</p>
+<pre><code class="language-cmd">
+ECHO %0  REM Имя скрипта
+ECHO %1  REM Первый аргумент
+ECHO %2  REM Второй аргумент
+ECHO %* REM Все аргументы
+</code></pre>
+<p>Если выполнить <code>script.bat arg1 arg2</code>, вывод будет:</p>
+<pre><code>
+Имя скрипта: script.bat
+Первый аргумент: arg1
+Второй аргумент: arg2
+Все аргументы: arg1 arg2
+</code></pre>
+<hr />
+<h2>6. Ввод пользователя</h2>
+<p>
+  Команда <code>SET /P</code> позволяет считывать ввод пользователя и сохранять
+  его в переменную.
+</p>
+<pre><code class="language-cmd">
+SET /P user_name=Введите ваше имя: 
+ECHO Привет, %user_name%!
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: Ввод пользователя сохраняется как строка, и
+    пробелы в вводе обрабатываются корректно.
+  </p>
+</blockquote>
+<hr />
+<h2>7. Значения по умолчанию</h2>
+<p>
+  В <code>cmd</code> нет прямого аналога конструкций
+  <code>${var:-default}</code> из <code>bash</code>, но можно использовать
+  <code>IF NOT DEFINED</code> для установки значений по умолчанию.
+</p>
+<pre><code class="language-cmd">
+IF NOT DEFINED name SET name=Guest
+ECHO %name%  REM Выводит: Guest, если name не определена
+</code></pre>
+<hr />
+<h2>8. Циклы</h2>
+<h3>8.1 Цикл FOR</h3>
+<p>
+  Цикл <code>FOR</code> используется для итерации по списку или диапазону чисел.
+</p>
+<pre><code class="language-cmd">
+FOR /L %%i IN (1,1,5) DO ECHO %%i
+</code></pre>
+<ul>
+  <li><code>/L</code> указывает, что цикл работает с диапазоном чисел .</li>
+  <li>
+    Формат: <code>(start,step,end)</code> — начальное значение, шаг, конечное
+    значение.
+  </li>
+</ul>
+<p>Пример перебора файлов:</p>
+<pre><code class="language-cmd">
+FOR %%f IN (*.txt) DO ECHO Обработка файла: %%f
+</code></pre>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: В скриптах используйте <code>%%i</code> вместо
+    <code>%i</code>, так как <code>%i</code> работает только в командной строке.
+  </p>
+</blockquote>
+<h3>8.2 Цикл WHILE (с использованием IF и GOTO)</h3>
+<p>
+  В <code>cmd</code> нет встроенного цикла <code>WHILE</code>, но его можно
+  эмулировать с помощью <code>IF</code> и <code>GOTO</code>.
+</p>
+<pre><code class="language-cmd">
+SET count=0
+:loop
+IF %count% LSS 5 (
+    ECHO %count%
+    SET /A count+=1
+    GOTO loop
+)
+</code></pre>
+<hr />
+<h2>9. Функции</h2>
+<p>
+  Функции в <code>cmd</code> создаются с помощью меток (<code>:label</code>) и
+  вызываются командой <code>CALL</code>.
+</p>
+<h3>9.1 Определение функции</h3>
+<pre><code class="language-cmd">
+:my_function
+ECHO Привет, %1!
+GOTO :EOF
+</code></pre>
+<h3>9.2 Вызов функции</h3>
+<pre><code class="language-cmd">
+CALL :my_function Alice
+</code></pre>
+<p>Пример полной функции:</p>
+<pre><code class="language-cmd">
+@ECHO OFF
+CALL :greet Alice
+CALL :greet Bob
+GOTO :EOF
+
+:greet
+ECHO Привет, %1!
+GOTO :EOF
+</code></pre>
+<ul>
+  <li><code>GOTO :EOF</code> завершает выполнение функции.</li>
+  <li>Аргументы передаются через <code>%1</code>, <code>%2</code> и т.д. .</li>
+</ul>
+<blockquote>
+  <p>
+    <strong>Примечание</strong>: Функции в <code>cmd</code> менее гибкие, чем в
+    <code>bash/zsh</code>, и не поддерживают локальные переменные без
+    дополнительных настроек.
+  </p>
+</blockquote>
+<hr />
+<h2>10. Массивы (эмуляция)</h2>
+<p>
+  <code>cmd</code> не поддерживает массивы напрямую, но их можно эмулировать,
+  используя переменные с индексами.
+</p>
+<pre><code class="language-cmd">
+SET array_1=cat
+SET array_2=dog
+SET array_3=mouse
+</code></pre>
+<p>Пример перебора:</p>
+<pre><code class="language-cmd">
+SET i=1
+:array_loop
+IF DEFINED array_%i% (
+    ECHO Элемент %i%: %array_%i%
+    SET /A i+=1
+    GOTO array_loop
+)
+</code></pre>
+<hr />
+<h2>11. Работа с файлами</h2>
+<h3>11.1 Проверка существования файла</h3>
+<pre><code class="language-cmd">
+IF EXIST file.txt (
+    ECHO file.txt существует
+) ELSE (
+    ECHO file.txt не существует
+)
+</code></pre>
+<h3>11.2 Чтение из файла</h3>
+<pre><code class="language-cmd">
+FOR /F "tokens=*" %%line IN (input.txt) DO ECHO %%line
+</code></pre>
+<h3>11.3 Запись в файл</h3>
+<pre><code class="language-cmd">
+ECHO Привет, мир! > output.txt
+</code></pre>
+<h3>11.4 Добавление в файл</h3>
+<pre><code class="language-cmd">
+ECHO Еще текст >> output.txt
+</code></pre>
+<hr />
+<h2>12. Примеры</h2>
+<h3>12.1 Простой счётчик</h3>
+<pre><code class="language-cmd">
+@ECHO OFF
+SET count=0
+:loop
+IF %count% LSS 5 (
+    ECHO Счётчик: %count%
+    SET /A count+=1
+    GOTO loop
+)
+</code></pre>
+<h3>12.2 Приветствие с вводом пользователя</h3>
+<pre><code class="language-cmd">
+@ECHO OFF
+SET /P name=Введите ваше имя: 
+IF NOT DEFINED name SET name=Guest
+ECHO Привет, %name%!
+</code></pre>
+<h3>12.3 Обработка файлов</h3>
+<pre><code class="language-cmd">
+@ECHO OFF
+FOR %%f IN (*.txt) DO (
+    ECHO Обработка файла: %%f
+    COPY %%f backup_%%f
+)
+</code></pre>
+<hr />
+<h2>13. Подсказки и рекомендации</h2>
+<ul>
+  <li>
+    <strong>Используйте <code>@ECHO OFF</code></strong
+    >: Это скрывает команды от вывода в консоли, делая вывод чище.
+  </li>
+  <li>
+    <strong>Заключайте переменные в кавычки</strong>: Используйте
+    <code>"%var%"</code> в условиях, чтобы избежать ошибок с пустыми значениями.
+  </li>
+  <li>
+    <strong>Используйте <code>SET /A</code> для арифметики</strong>: Это
+    упрощает работу с числами.
+  </li>
+  <li>
+    <strong>Проверяйте существование переменных</strong>: Используйте
+    <code>IF DEFINED</code> для обработки неопределённых переменных .
+  </li>
+  <li>
+    <strong>Избегайте пробелов в именах файлов</strong>: Это может вызвать
+    ошибки при работе с командами, такими как <code>COPY</code>.
+  </li>
+</ul>
+<hr />

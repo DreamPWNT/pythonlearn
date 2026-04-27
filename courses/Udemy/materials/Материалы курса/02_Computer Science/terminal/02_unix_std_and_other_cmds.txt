@@ -1,0 +1,36 @@
+ping localhost  # для примера используем эту программу.
+
+ping localhost > out.txt	   Перезаписывает stdout в файл.
+ping localhost >> out.txt	   Добавляет stdout в конец файла.
+ping localhost 2> err.txt	   Перезаписывает stderr в файл.
+ping localhost 2>> err.txt	   Добавляет stderr в конец файла.
+ping localhost &> output.txt       stdout и stderr — в один файл.
+ping localhost &>> output.txt      stdout и stderr — в конец файла.
+ping localhost > out.txt 2>&1	   stdout и stderr — в один файл.
+ping localhost > /dev/null	   Отключить stdout.
+ping localhost 2> /dev/null	   Отключить stderr.
+ping localhost > /dev/null 2>&1	   Полностью подавить вывод.
+ping localhost < input.txt	   Ввод читается из файла.
+ping localhost < /dev/null	   Подавить ввод.
+
+ping localhost | tee output.txt
+Стандартный поток вывода будет скопирован в файл, он будет виден
+в терминале. Если файл уже существует, он будет перезаписан.
+
+ping localhost | tee -a output.txt
+Стандартный поток вывода будет скопирован в файл, он будет виден в
+терминале. Если файл уже существует, новые данные будут добавлены в конец файла.
+
+НА СЛЕДУЮЩИЕ ЛЕКЦИИ:
+
+Запустить как background процесс, освободив терминал:
+ping localhost &
+
++ не отправлять сигнал SIGHUP при закрытии управляющего терминала:
+nohup ping localhost &
+
++ забыть о процессе исключив его из tasks:
+ping localhost & disown
+
+Просто примерчик:
+ping localhost > out.txt 2> err.txt < /dev/null & disown

@@ -451,3 +451,25 @@ x[0].clear()
 
 print(x)
 print(y)
+
+tasks = ["Play Factorio", "Drink Vodka", "Smoke", "Cooking"]
+done = [False, True, False, True]
+
+for i in enumerate(tasks):
+    print(i)
+
+for i, task in enumerate(tasks):
+    if done[i]:
+        mark = "[x]"
+    else:
+        mark = "[ ]"
+
+    print(f'{i + 1}. {mark} {task}')
+
+for task, status in zip(tasks, done):
+    if status:
+        mark = "[x]"
+    else:
+        mark = "[ ]"
+
+    print(f'{mark} {task}')
